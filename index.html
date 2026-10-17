@@ -1,6 +1,403 @@
-   <!DOCTYPE html>
-   <html>
-   <body>
-     <h1>Git test v1</h1>
-   </body>
-   </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pawsome Bites | Coming Soon</title>
+<meta name="description" content="Healthy, delicious food for your best friend. Launching soon.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+<style>
+  :root {
+    --bg-1: #fff6ec;
+    --bg-2: #ffe3c2;
+    --ink: #3b2a20;
+    --muted: #7a6357;
+    --accent: #ff7a45;
+    --accent-2: #ffb347;
+    --card: rgba(255, 255, 255, 0.7);
+    --line: rgba(59, 42, 32, 0.12);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg-1: #1d1612;
+      --bg-2: #2e211a;
+      --ink: #fbeee2;
+      --muted: #c6ab9a;
+      --accent: #ff8f5e;
+      --accent-2: #ffc26b;
+      --card: rgba(255, 255, 255, 0.06);
+      --line: rgba(255, 240, 230, 0.12);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg-1: #1d1612;
+    --bg-2: #2e211a;
+    --ink: #fbeee2;
+    --muted: #c6ab9a;
+    --accent: #ff8f5e;
+    --accent-2: #ffc26b;
+    --card: rgba(255, 255, 255, 0.06);
+    --line: rgba(255, 240, 230, 0.12);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(env(safe-area-inset-top, 0px) + 24px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
+    position: relative;
+  }
+
+  /* Floating background paws */
+  .paw {
+    position: fixed;
+    font-size: 2.2rem;
+    opacity: 0.12;
+    pointer-events: none;
+    animation: float linear infinite;
+    bottom: -80px;
+    z-index: 0;
+  }
+  @keyframes float {
+    0%   { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-120vh) rotate(360deg); }
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 620px;
+    width: 100%;
+  }
+
+  /* Bouncing logo */
+  .logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 18px;
+    border-radius: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: grid;
+    place-items: center;
+    font-size: 3.4rem;
+    box-shadow: 0 18px 40px -12px rgba(255, 122, 69, 0.55);
+    animation: bounce 2.4s ease-in-out infinite, fadeDown 0.9s ease both;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50%      { transform: translateY(-14px) rotate(3deg); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  h1 {
+    font-size: clamp(2.3rem, 7vw, 3.8rem);
+    line-height: 1.05;
+    margin: 18px 0 10px;
+    font-weight: 900;
+  }
+  .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: wordIn 0.6s ease forwards;
+  }
+  .highlight {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @keyframes wordIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .lead {
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 1.6;
+    margin: 0 auto 28px;
+    max-width: 480px;
+    animation: fadeUp 0.9s 0.6s ease both;
+  }
+
+  /* Countdown */
+  .countdown {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.8s ease both;
+  }
+  .unit {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 0;
+    width: 88px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .unit span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    transition: transform 0.25s ease;
+  }
+  .unit span.tick { transform: scale(1.15); }
+  .unit small {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* Email form */
+  form {
+    display: flex;
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px;
+    animation: fadeUp 0.9s 1s ease both;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  input[type="email"] {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    padding: 12px 18px;
+    outline: none;
+  }
+  input::placeholder { color: var(--muted); }
+  button {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 22px;
+    font: inherit;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 20px -8px rgba(255, 122, 69, 0.7);
+  }
+  button:hover { transform: translateY(-2px) scale(1.03); }
+  button:active { transform: scale(0.97); }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .message {
+    min-height: 1.4em;
+    margin-top: 14px;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  .message.ok { color: var(--accent); font-weight: 700; }
+
+  .socials {
+    margin-top: 28px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    animation: fadeUp 0.9s 1.2s ease both;
+  }
+  .socials a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  /* Dog bowl wiggle */
+  .bowl {
+    display: inline-block;
+    font-size: 1.4rem;
+    animation: wiggle 3s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes wiggle {
+    0%, 85%, 100% { transform: rotate(0deg); }
+    88% { transform: rotate(-12deg); }
+    92% { transform: rotate(10deg); }
+    96% { transform: rotate(-6deg); }
+  }
+
+  @media (max-width: 480px) {
+    form { flex-direction: column; border-radius: 22px; }
+    input[type="email"] { text-align: center; }
+    button { width: 100%; }
+    .unit { width: 72px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .word { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="paws" aria-hidden="true"></div>
+
+<main>
+  <div class="logo" aria-hidden="true">🐶</div>
+  <span class="eyebrow">Launching Soon</span>
+
+  <h1>
+    <span class="word">Good</span>
+    <span class="word">food,</span>
+    <span class="word highlight">happy</span>
+    <span class="word highlight">tails.</span>
+  </h1>
+
+  <p class="lead">
+    Vet-inspired recipes made with real meat and wholesome ingredients.
+    Our bowls are almost ready. Be the first to know when they arrive.
+  </p>
+
+  <div class="countdown" id="countdown" aria-live="off">
+    <div class="unit"><span id="d">00</span><small>Days</small></div>
+    <div class="unit"><span id="h">00</span><small>Hours</small></div>
+    <div class="unit"><span id="m">00</span><small>Minutes</small></div>
+    <div class="unit"><span id="s">00</span><small>Seconds</small></div>
+  </div>
+
+  <form id="signup" novalidate>
+    <input type="email" id="email" placeholder="you@example.com" aria-label="Email address" required>
+    <button type="submit">Notify me</button>
+  </form>
+  <p class="message" id="message" role="status"></p>
+
+  <div class="socials">
+    <span class="bowl" aria-hidden="true">🥣</span>
+    <span>Follow the pack:</span>
+    <a href="#" aria-label="Instagram">Instagram</a>
+    <a href="#" aria-label="Facebook">Facebook</a>
+  </div>
+</main>
+
+<script>
+  // Floating paws in the background
+  (function () {
+    const container = document.querySelector('.paws');
+    const icons = ['🐾', '🦴', '🐟', '🥕'];
+    const count = window.innerWidth < 600 ? 8 : 14;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = 'paw';
+      el.textContent = icons[i % icons.length];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (12 + Math.random() * 14) + 's';
+      el.style.animationDelay = (-Math.random() * 20) + 's';
+      el.style.fontSize = (1.4 + Math.random() * 1.8) + 'rem';
+      container.appendChild(el);
+    }
+  })();
+
+  // Staggered headline reveal
+  document.querySelectorAll('.word').forEach((w, i) => {
+    w.style.animationDelay = (0.3 + i * 0.15) + 's';
+  });
+
+  // Countdown to a launch date (edit this value)
+  const LAUNCH = new Date();
+  LAUNCH.setDate(LAUNCH.getDate() + 30);
+  LAUNCH.setHours(10, 0, 0, 0);
+
+  const els = { d: document.getElementById('d'), h: document.getElementById('h'),
+                m: document.getElementById('m'), s: document.getElementById('s') };
+  const last = {};
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function setUnit(key, value) {
+    if (last[key] === value) return;
+    last[key] = value;
+    const el = els[key];
+    el.textContent = pad(value);
+    el.classList.remove('tick');
+    void el.offsetWidth;
+    el.classList.add('tick');
+    setTimeout(() => el.classList.remove('tick'), 250);
+  }
+
+  function tick() {
+    let diff = Math.max(0, LAUNCH - new Date());
+    const d = Math.floor(diff / 86400000); diff %= 86400000;
+    const h = Math.floor(diff / 3600000);  diff %= 3600000;
+    const m = Math.floor(diff / 60000);    diff %= 60000;
+    const s = Math.floor(diff / 1000);
+    setUnit('d', d); setUnit('h', h); setUnit('m', m); setUnit('s', s);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // Email signup (front-end only; connect to your mailing service)
+  const form = document.getElementById('signup');
+  const input = document.getElementById('email');
+  const message = document.getElementById('message');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = input.value.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    message.classList.remove('ok');
+    if (!valid) {
+      message.textContent = 'Please enter a valid email address.';
+      input.focus();
+      return;
+    }
+    message.classList.add('ok');
+    message.textContent = "You're on the list! We'll wag our tails when we launch. 🐾";
+    form.reset();
+  });
+</script>
+</body>
+</html>
