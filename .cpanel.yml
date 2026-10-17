@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/devxploreseo/public_html/testinggit/
+    - mkdir -p $DEPLOYPATH
+    - /bin/cp -R * $DEPLOYPATH
